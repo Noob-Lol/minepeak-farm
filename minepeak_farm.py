@@ -18,11 +18,7 @@ options.add_argument(f'--load-extension={all_extensions}')
 options.add_experimental_option('excludeSwitches', ['enable-automation'])
 options.add_experimental_option('useAutomationExtension', False)
 start_time = 0.0
-ub_filters = '''
-dashboard.minepeakhosting.com###sidebar
-dashboard.minepeakhosting.com##.flex-row.d-flex.fixed-top.p-0.navbar
-dashboard.minepeakhosting.com##.footer
-'''
+ub_filters = '''dashboard.minepeakhosting.com##.container-scroller'''
 
 with webdriver.Chrome(options=options) as driver:
     actions = ActionChains(driver)
@@ -50,7 +46,7 @@ with webdriver.Chrome(options=options) as driver:
         coin_count = 0
         while True:
             try:
-                driver.find_element(By.CSS_SELECTOR, "button.btn.btn-primary.btn-lg").click()
+                driver.execute_script("generate()")
                 WebDriverWait(driver, 15,0.2).until(EC.url_to_be('https://dashboard.minepeakhosting.com/lv?success=true'))
                 coin_count += 30
             except Exception as e:
